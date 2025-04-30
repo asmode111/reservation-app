@@ -1,0 +1,56 @@
+services:
+  reservation-app-web:
+    build: ./web
+    container_name: reservation-app-web
+    ports:
+      - "4200:4200"
+    depends_on:
+      - reservation-app-api
+    volumes:
+      - ./web:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - API_URL=http://localhost:3000
+  reservation-app-api:
+    build: ./api
+    container_name: reservation-app-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - reservation-app-db
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./api/nodemon.json:/usr/src/app/nodemon.json
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    command: npm run dev
+  reservation-app-db:
+    image: postgres:15
+    container_name: reservation-app-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: reservation-app-pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - reservation-app-db
+volumes:
+  pgdata:

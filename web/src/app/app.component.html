@@ -1,0 +1,84 @@
+<h1>Guest&Reservations</h1>
+
+<form class="filter-form" (ngSubmit)="applyFilter()" #filterForm="ngForm">
+  <label>
+    First name:
+    <input type="text" [(ngModel)]="filter.first_name" name="first_name" />
+  </label>
+
+  <label>
+    Middle name:
+    <input type="text" [(ngModel)]="filter.middle_name" name="middle_name" />
+  </label>
+
+  <label>
+    Last name:
+    <input type="text" [(ngModel)]="filter.last_name" name="last_name" />
+  </label>
+  
+  <label>
+    Email:
+    <input type="text" [(ngModel)]="filter.email_address" name="email_address" />
+  </label>
+
+  <label>
+    Phone Number:
+    <input type="text" [(ngModel)]="filter.phone_number" name="phone_number" />
+  </label>
+
+  <label>
+    Booking Reference:
+    <input type="text" [(ngModel)]="filter.booking_reference" name="booking_reference" />
+  </label>
+
+  <label>
+    Booking Status:
+    <select [(ngModel)]="filter.status" name="status">
+      <option value="">All</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Cancelled">Cancelled</option>
+      <option value="CheckedIn">Checked In</option>
+      <option value="CheckedOut">Checked Out</option>
+    </select>
+  </label>
+
+  <button type="submit">Apply Filter</button>
+</form>
+
+<table class="data-table" border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Guest ID</th>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Booking Reference</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let guest of guests">
+      <tr *ngIf="guest.reservations.length === 0">
+        <td>{{ guest.id }}</td>
+        <td>{{ guest.first_name }}</td>
+        <td>{{ guest.middle_name }}</td>
+        <td>{{ guest.last_name }}</td>
+        <td>{{ guest.email_address }}</td>
+        <td>{{ guest.phone_number }}</td>
+        <td colspan="2">No reservations</td>
+      </tr>
+      <tr *ngFor="let reservation of guest.reservations">
+        <td>{{ guest.id }}</td>
+        <td>{{ guest.first_name }}</td>
+        <td>{{ guest.middle_name }}</td>
+        <td>{{ guest.last_name }}</td>
+        <td>{{ guest.email_address }}</td>
+        <td>{{ guest.phone_number }}</td>
+        <td>{{ reservation.booking_reference }}</td>
+        <td>{{ reservation.status }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
