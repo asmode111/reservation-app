@@ -8,7 +8,7 @@ const PORT: number = parseInt(process.env.PORT || '3000');
 async function startServer() {
   await Database.getInstance().authenticate();
   await Database.getInstance().sync({
-    // force: true
+    force: true
   });
 
   app.listen(PORT, () => {

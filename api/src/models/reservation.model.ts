@@ -18,7 +18,7 @@ Reservation.init(
     guest_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: Guest, key: 'id' },
+      // references: { model: Guest, key: 'id' },
     },
     status: {
       type: DataTypes.ENUM,
@@ -41,7 +41,5 @@ Reservation.init(
     ]
   }
 );
-
-Reservation.sync();
 
 export default Reservation;

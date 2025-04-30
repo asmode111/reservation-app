@@ -1,6 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
 import Database from '../config/database.config';
-import Reservation from './reservation.model';
 
 class Guest extends Model {
   declare id: number;
@@ -45,7 +44,5 @@ Guest.init(
     tableName: 'guests',
   }
 );
-
-Guest.sync();
 
 export default Guest;
