@@ -93,28 +93,6 @@ Get the container name and run the command below in case you want to run the com
 docker exec -it reservation-app-api /bin/bash
 ```
 
-## Future development
-
-- Move application to cloud with CI/CD pipelines.
-- Merge `first_name`, `middle_name`, and `last_name` into one field like full_name. 
-- Use Swagger or Postmane workspace to share the API endpoints and guideline.
-- Tests will be added under the tests folder for both web and api.
-- On the web application, when filter is done, URL would be updated by the filtered data. It improves the UX and make the link sharing possible between the colleagues.
-
-## Known issues or limitations
-
-- Search by `reservation.status` is a bit slow. It can be improved by adding index.
-- Filter query performance can be improved.
-
-## Success Criteria
-
-Your solution should:
-
-- ✅ Load and store 1,000,000 guest records
-- ✅ Display the dataset with infinite or virtual scroll
-- ✅ Support filtering on guest name, email, phone number, and booking reference
-- ✅ Return filtered results with sub-second response times
-
 ## API Guideline
 
 `GET api/guests`
